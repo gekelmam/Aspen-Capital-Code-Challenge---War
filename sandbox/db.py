@@ -1,5 +1,7 @@
 import sqlite3
-conn = sqlite3.connect('player_database') 
+# SQLite objects created in a thread can only be used in that same thread, thus
+# the need for the check_same_thread flag to be false.
+conn = sqlite3.connect('player_database', check_same_thread=False) 
 c = conn.cursor()
 
 c.execute('''

@@ -7,10 +7,10 @@ app = Flask(__name__)
 conn = sqlite3.connect('player_database.db', check_same_thread=False) 
 c = conn.cursor()
 
-c.execute('''
-          CREATE TABLE IF NOT EXISTS players
-          ([player_name] INTEGER PRIMARY KEY, [num_wins] INTEGER)
-          ''')
+# c.execute('''
+#           CREATE TABLE IF NOT EXISTS players
+#           ([player_name] INTEGER PRIMARY KEY, [num_wins] INTEGER)
+#           ''')
           
 # c.execute('''
 #           INSERT INTO players (player_name, num_wins)
@@ -21,6 +21,7 @@ c.execute('''
                      
 conn.commit()
 
+# Display a json options menu for endpoints
 @app.route('/')
 def index():
   output = dict([("/reset", "Reset all scores to zero."), 
@@ -30,7 +31,7 @@ def index():
            ("/user/2", " Displays player two's score.")])
   return jsonify(output)
 
-# Displays one player's score
+# Displays a single player's score
 @app.route('/user/<username>')
 def show_user(username):
   c.execute("SELECT * FROM players WHERE (player_name = (?))", (username))
